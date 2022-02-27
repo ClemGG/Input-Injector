@@ -30,11 +30,6 @@ namespace Project.StateMachine
         {
             base.Enter(); 
             
-            if (!_ctx.IsAI) 
-            { 
-                _ctx.PlayerIndicatorUI.SetParent(_ctx.T);
-                _ctx.PlayerIndicatorUI.localPosition = Vector3.up * 2f;
-            }
         }
 
         protected override void Update()
@@ -45,38 +40,6 @@ namespace Project.StateMachine
             }
 
             _growthSize = Mathf.PingPong(_globalTime, 3f);
-
-
-
-            //Changes the Controllers' Injectors when we press space
-            if (_input.HasPressedSwap)
-            {
-                _ctx.IsAI = !_ctx.IsAI;
-                _ctx.OtherController.ControllerData.IsAI = !_ctx.OtherController.ControllerData.IsAI;
-
-                if (_ctx.IsAI)
-                {
-                    _ctx.Controller.SetInjector<AITesterInjector>();
-                    _ctx.OtherController.SetInjector<TesterInjector>();
-                }
-                else
-                {
-                    _ctx.Controller.SetInjector<TesterInjector>();
-                    _ctx.OtherController.SetInjector<AITesterInjector>();
-                }
-            }
-
-            //When we swap the Injector, we display the "Player" cursor above the Controller used by the Player
-            if (!_ctx.IsAI)
-            {
-                if (_ctx.PlayerIndicatorUI.parent != _ctx.T) 
-                {
-                    _ctx.PlayerIndicatorUI.SetParent(_ctx.T);
-                    _ctx.PlayerIndicatorUI.localPosition = Vector3.up * 2f;
-                    _ctx.PlayerIndicatorUI.localScale = Vector3.one * .02f;
-                }
-            }
-
         }
         protected override void FixedUpdate() 
         {

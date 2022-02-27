@@ -1,7 +1,7 @@
 namespace Project.Player.Input
 {
     /// Processes the players' inputs from Unity's Input System
-    public class InputControlsInjector<TContextData, TEndData> : InputInjector<TContextData, TEndData> 
+    public abstract class InputControlsInjector<TContextData, TEndData> : InputInjector<TContextData, TEndData> 
         where TContextData : InputContextData
         where TEndData : InputEndData
     {
@@ -10,8 +10,8 @@ namespace Project.Player.Input
         public override void SetContextAndEndData(TContextData contextData, TEndData endData)
         {
             base.SetContextAndEndData(contextData, endData);
+            _controls ??= new InputControls();
 
-            _controls = new InputControls();
             Enable();
         }
 
@@ -23,8 +23,14 @@ namespace Project.Player.Input
         // Don't forget to unsubscribe to all events
         public virtual void Disable()
         {
+            Unsubscribe();
             _controls.Disable();
         }
 
+        /// <summary>
+        /// When the Injector is returned to the Pool, we make sure to clear
+        /// all references to the InputControls to avoid memory leak
+        /// </summary>
+        protected abstract void Unsubscribe();
     }
 }

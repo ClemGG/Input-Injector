@@ -26,10 +26,54 @@ namespace Project.Player.Tester
             _stateFactory.Start<GrowState>();
         }
 
+        protected override void Start()
+        {
+            base.Start();
+
+            //Set Player UI on the object controlled by the Player
+            if (!_isAI)
+            {
+                _playerIndicatorUI.SetParent(ControllerData.T);
+                _playerIndicatorUI.localPosition = Vector3.up * 2f;
+            }
+        }
+
         protected override void Update()
         {
             base.Update();
+
+            //Changes the Controllers' Injectors when we press space
+            if (InputData.HasPressedSwap)
+            {
+                ControllerData.IsAI = !ControllerData.IsAI;
+                _otherController.ControllerData.IsAI = !_otherController.ControllerData.IsAI;
+
+                if (ControllerData.IsAI)
+                {
+                    SetInjector<AITesterInjector>();
+                    _otherController.SetInjector<TesterInjector>();
+                }
+                else
+                {
+                    SetInjector<TesterInjector>();
+                    _otherController.SetInjector<AITesterInjector>();
+
+                }
+            }
+
+            if (!ControllerData.IsAI)
+            {
+                if(_playerIndicatorUI.parent != ControllerData.T)
+                {
+                    //When we swap the Injector, we display the "Player" cursor above the Controller used by the Player
+                    _playerIndicatorUI.SetParent(ControllerData.T);
+                    _playerIndicatorUI.localPosition = Vector3.up * 2f;
+                    _playerIndicatorUI.localScale = Vector3.one * .02f;
+                }
+            }
         }
+
+        
 
 
         /* We use the Controller for the MonoBehaviour related instructions,
@@ -52,7 +96,7 @@ namespace Project.Player.Tester
 
         #region Controller Overrides
 
-        protected override void SetupInjectorAndStatePoolers()
+        protected override void SetupPoolers()
         {
             _injectorPooler = new ClassPooler<InputInjector>
                 (

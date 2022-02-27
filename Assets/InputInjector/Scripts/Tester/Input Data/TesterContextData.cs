@@ -12,10 +12,7 @@ namespace Project.Player.Tester
         public float MoveSpeed = 2f;
         public float GrowSpeed = 2f;
 
-        [HideInInspector] public TesterController Controller;
-        [HideInInspector] public TesterController OtherController;
         [HideInInspector] public Transform T;
-        [HideInInspector] public Transform PlayerIndicatorUI;    //The UI set above the Controller currently managed by the Player.
         [ReadOnly] public bool IsAI = false;
 
 
@@ -23,11 +20,9 @@ namespace Project.Player.Tester
 
         public override void SetupContextData(Controller controller)
         {
-            Controller = controller as TesterController;
-            OtherController = Controller._otherController;
+            TesterController Controller = controller as TesterController;
             T = Controller.transform;
             IsAI = Controller._isAI;
-            PlayerIndicatorUI = Controller._playerIndicatorUI;
         }
 
     }

@@ -190,9 +190,7 @@ MonoBehaviour:
     MoveSpeed: 2
     GrowSpeed: 2
     Controller: {fileID: 0}
-    OtherController: {fileID: 0}
     T: {fileID: 0}
-    PlayerIndicatorUI: {fileID: 0}
     IsAI: 0
   <InputData>k__BackingField:
     IsColliding: 0
@@ -720,9 +718,7 @@ MonoBehaviour:
     MoveSpeed: 2
     GrowSpeed: 2
     Controller: {fileID: 0}
-    OtherController: {fileID: 0}
     T: {fileID: 0}
-    PlayerIndicatorUI: {fileID: 0}
     IsAI: 0
   <InputData>k__BackingField:
     IsColliding: 0

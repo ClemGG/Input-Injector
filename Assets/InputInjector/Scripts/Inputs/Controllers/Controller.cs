@@ -114,7 +114,7 @@ namespace Project.Player.Input
 
        
 
-        protected virtual void Awake() => SetupInjectorAndStatePoolers();
+        protected virtual void Awake() => SetupPoolers();
         protected virtual void Start() => Injector.OnStart();
         protected virtual void Update() => Injector.OnUpdate();
 
@@ -127,7 +127,7 @@ namespace Project.Player.Input
         /// Lets the subclasses handle which states and injectors to use.
         /// The _statePooler will be automatically referenced by the State Machine.
         /// </summary>
-        protected abstract void SetupInjectorAndStatePoolers();
+        protected abstract void SetupPoolers();
 
 
 
